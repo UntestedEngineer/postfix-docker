@@ -1,4 +1,4 @@
-**This is a fork of [https://github.com/juanluisbaptiste/docker-postfix.git](https://github.com/juanluisbaptiste/docker-postfix.git).  The general architecture is the same with some minor changes**
+**This is a fork of [https://github.com/juanluisbaptiste/docker-postfix](https://github.com/juanluisbaptiste/docker-postfix).  The general architecture is the same with some minor changes**
 
 **Kubernetes examples are also available under the Kubernetes subdirectory.  A secret must be created for the appropriate environment variables referenced in the deployment manifest**
 
