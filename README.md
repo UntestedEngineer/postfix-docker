@@ -1,51 +1,25 @@
+**This is a fork of [https://github.com/juanluisbaptiste/docker-postfix.git](https://github.com/juanluisbaptiste/docker-postfix.git).  The general architecture is the same with some minor changes**
+
+**Kubernetes examples are also available under the Kubernetes subdirectory.  A secret must be created for the appropriate environment variables referenced in the deployment manifest**
+
 # docker-postfix
-[![Docker Build Status](https://img.shields.io/docker/cloud/build/juanluisbaptiste/postfix?style=flat-square)](https://hub.docker.com/r/juanluisbaptiste/postfix/builds/)
-[![Docker Stars](https://img.shields.io/docker/stars/juanluisbaptiste/postfix.svg?style=flat-square)](https://hub.docker.com/r/juanluisbaptiste/postfix/)
-[![Docker Pulls](https://img.shields.io/docker/pulls/juanluisbaptiste/postfix.svg?style=flat-square)](https://hub.docker.com/r/juanluisbaptiste/postfix/)
 
 Simple Postfix SMTP TLS relay [docker](http://www.docker.com) alpine based image with no local authentication enabled (to be run in a secure LAN).
-
-This image is available for the following architectures:
-
-* 386
-* amd64 (_latest_ and _alpine_ tags)
-* armv6
-* armv7
-* arm64
-
-_If you want to follow the development of this project check out [my blog](https://www.juanbaptiste.tech/category/postfx)._
-
-### Available image tags
-
-We use semantic versioning for this image. For all supported architectures there are the following versioned tags:
-
-* Major (1)
-* Minor (1.0)
-* Patch (1.0.0)
-
-Additionally the amd64 architecture has the following tags:
-
-* _latest_
-* _alpine_
-
-*_NOTES_*:
-  * The _alpine_ tag has been switched to use the master branch, but it's irrelevant as it is the same as _latest_.
-  * Old CentOS 7 based image is avaiable on the _centos_base_image branch_, but it is not being developed any more.
 
 ### Build instructions
 
 Clone this repo and then:
 
     cd docker-Postfix
-    sudo docker build -t juanluisbaptiste/postfix .
+    sudo docker build -t untestedengineer/postfix-docker .
 
-Or you can use the provided [docker-compose](https://github.com/juanluisbaptiste/docker-postfix/blob/master/docker-compose.override.yml) files:
+Or you can use the provided [docker-compose](https://github.com/untestedengineer/postfix-docker/blob/master/docker-compose.override.yml) files:
 
     sudo docker-compose build
 
-For more information on using multiple compose files [see here](https://docs.docker.com/compose/production/). You can also find a prebuilt docker image from [Docker Hub](https://registry.hub.docker.com/u/juanluisbaptiste/postfix/), which can be pulled with this command:
+For more information on using multiple compose files [see here](https://docs.docker.com/compose/production/). You can also find a prebuilt docker image from [Docker Hub](https://registry.hub.docker.com/u/untestedengineer/postfix-docker/), which can be pulled with this command:
 
-    sudo docker pull juanluisbaptiste/postfix:latest
+    sudo docker pull untestedengineer/postfix-docker:latest
 
 ### How to run it
 
@@ -60,7 +34,7 @@ The following env variables need to be passed to the container:
 The following env variable(s) are optional.
 * `SMTP_HEADER_TAG` This will add a header for tracking messages upstream. Helpful for spam filters. Will appear as "RelayTag: ${SMTP_HEADER_TAG}" in the email headers.
 
-* `SMTP_NETWORKS` Setting this will allow you to add additional, comma seperated, subnets to use the relay. Used like
+* `SMTP_NETWORKS` Setting this will allow you to add additional, comma separated, subnets to use the relay. Used like
     -e SMTP_NETWORKS='xxx.xxx.xxx.xxx/xx,xxx.xxx.xxx.xxx/xx'
 
 * `SMTP_PASSWORD_FILE` Setting this to a mounted file containing the password, to avoid passwords in env variables. Used like
@@ -83,8 +57,6 @@ The following env variable(s) are optional.
 
 * `SMTPUTF8_ENABLE` This will enable (default) or disable support for SMTPUTF8. Valid values are `no` to disable and `yes` to enable. Not setting this variable will use the postfix default, which is `yes`.
 
-* `MESSAGE_SIZE_LIMIT` This will change the default limit of 10240000 bytes (10MB).
-
 To use this container from anywhere, the 25 port or the one specified by `SMTP_PORT` needs to be exposed to the docker host server:
 
     docker run -d --name postfix -p "25:25"  \
@@ -92,7 +64,7 @@ To use this container from anywhere, the 25 port or the one specified by `SMTP_P
            -e SMTP_USERNAME=foo@bar.com \
            -e SMTP_PASSWORD=XXXXXXXX \
            -e SERVER_HOSTNAME=helpdesk.mycompany.com \
-           juanluisbaptiste/postfix
+           untestedengineer/postfix-docker
 
 If you are going to use this container from other docker containers then it's better to just publish the port:
 
@@ -101,9 +73,9 @@ If you are going to use this container from other docker containers then it's be
            -e SMTP_USERNAME=foo@bar.com \
            -e SMTP_PASSWORD=XXXXXXXX \
            -e SERVER_HOSTNAME=helpdesk.mycompany.com \           
-           juanluisbaptiste/postfix
+           untestedengineer/postfix-docker
 
-Or if you can start the service using the provided [docker-compose](https://github.com/juanluisbaptiste/docker-postfix/blob/master/docker-compose.yml) file for production use:
+Or if you can start the service using the provided [docker-compose](https://github.com/untestedengineer/postfix-docker/blob/master/docker-compose.yml) file for production use:
 
     sudo docker-compose up -d
 

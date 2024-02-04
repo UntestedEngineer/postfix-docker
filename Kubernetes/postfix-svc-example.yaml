@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: postfix-svc-tcp
+  namespace: example
+spec:
+  ports:
+    - name: 'postfix'
+      nodePort: 25
+      protocol: TCP
+      port: 25
+  selector:
+    app: postfix
+  type: NodePort

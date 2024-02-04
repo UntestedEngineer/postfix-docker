@@ -1,11 +1,10 @@
 #Dockerfile for a Postfix email relay service
-FROM alpine:3.16
-MAINTAINER Juan Luis Baptiste juan.baptiste@gmail.com
+FROM alpine:latest
+LABEL Juan Luis Baptiste juan.baptiste@gmail.com
+LABEL UntestedEngineer cpiehler2@gmail.com
 
-RUN apk update && \
-    apk add bash gawk cyrus-sasl cyrus-sasl-login cyrus-sasl-crammd5 mailx \
-    postfix && \
-    rm -rf /var/cache/apk/* && \
+RUN apk update --no-cache && apk add bash cyrus-sasl cyrus-sasl-login cyrus-sasl-crammd5 \
+    mailx postfix && \
     mkdir -p /var/log/supervisor/ /var/run/supervisor/ && \
     sed -i -e 's/inet_interfaces = localhost/inet_interfaces = all/g' /etc/postfix/main.cf
 
